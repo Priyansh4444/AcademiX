@@ -1,0 +1,2 @@
+# AcademiX
+Course Planner ~ Simplified
