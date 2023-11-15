@@ -3,7 +3,6 @@ import './App.css';
 import { BrowserRouter as Router, Route, Routes, BrowserRouter } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import Home from './components/Home';
-import How from './components/How';
 import BackGradients from './components/BackGradients';
 import CourseManagement from './components/CourseManagement';
 
