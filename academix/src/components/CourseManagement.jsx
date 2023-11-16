@@ -61,7 +61,7 @@ const CourseManagement = () => {
             <label className="flex flex-col-reverse relative focus group">
               <input
                 type="text"
-                name="email"
+                name="units"
                 value={unitValue}
                 onChange={handleUnitChange}
                 required
@@ -84,7 +84,7 @@ const CourseManagement = () => {
             <label className="flex flex-col-reverse relative focus group">
               <input
                 type="text"
-                name="email"
+                name="interests"
                 value={field3Value}
                 onChange={handleField3Change}
                 required
@@ -146,7 +146,7 @@ const CourseManagement = () => {
             <label className="flex flex-col-reverse relative focus group">
               <textarea
                 type="text"
-                name="email"
+                name="taken"
                 value={field4Value}
                 onChange={handleField4Change}
                 className="mt-3 mx-3 txt-main border-2 bg-transparent bord px-5 py-3 leading-9"
