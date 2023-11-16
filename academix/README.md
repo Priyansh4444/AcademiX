@@ -1,6 +1,7 @@
 # AcademiX
 Course Planner ~ Simplified
 
+Material Tailwind
 
 # Getting Started with Create React App
 

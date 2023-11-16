@@ -1,6 +1,126 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+.glowing {
+  position: relative;
+  min-width: 500px;
+  height: 500px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  animation: colorChange 9s linear infinite;
+  overflow: hidden;
+}
+
+.flyindots {
+  overflow: hidden;
+  position: fixed;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+}
+.glowing:nth-child(even) {
+  transform-origin: left;
+}
+
+@keyframes colorChange {
+  0% {
+    filter: hue-rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    filter: hue-rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+.glowing span {
+  position: relative;
+  top: calc(80px * var(--i));
+  left: calc(80px * var(--i));
+  bottom: calc(80px * var(--i));
+  right: calc(80px * var(--i));
+}
+
+.glowing span::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -8px;
+  width: 15px;
+  height: 15px;
+  background: #f00;
+  border-radius: 50%;
+}
+
+.glowing span:nth-child(3n + 1)::before {
+  background: rgba(134,255,0,1);
+  box-shadow: 0 0 20px rgba(134,255,0,1),
+    0 0 40px rgba(134,255,0,1),
+    0 0 60px rgba(134,255,0,1),
+    0 0 80px rgba(134,255,0,1),
+    0 0 0 8px rgba(134,255,0,.1);
+}
+
+.glowing span:nth-child(3n + 2)::before {
+  background: rgba(255,214,0,1);
+  box-shadow: 0 0 20px rgba(255,214,0,1),
+    0 0 40px rgba(255,214,0,1),
+    0 0 60px rgba(255,214,0,1),
+    0 0 80px rgba(255,214,0,1),
+    0 0 0 8px rgba(255,214,0,.1);
+}
+
+.glowing span:nth-child(3n + 3)::before {
+  background: rgba(0,226,255,1);
+  box-shadow: 0 0 20px rgba(0,226,255,1),
+    0 0 40px rgba(0,226,255,1),
+    0 0 60px rgba(0,226,255,1),
+    0 0 80px rgba(0,226,255,1),
+    0 0 0 8px rgba(0,226,255,.1);
+}
+
+.glowing span:nth-child(3n + 1) {
+  animation: animate 10s infinite;
+}
+
+.glowing span:nth-child(3n + 2) {
+  animation: animate-reverse 3s infinite;
+}
+
+.glowing span:nth-child(3n + 3) {
+  animation: animate 8s infinite; 
+}
+
+
+
+@keyframes animate {
+  0% {
+    transform: rotate(180deg);
+  }
+  50% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes animate-reverse {
+  0% {
+    transform: rotate(360deg);
+  }
+  
+  50% {
+    transform: rotate(180deg);
+  }
+  
+  100% {
+    transform: rotate(0deg);
+  }
+}
 
 body {
   font-family: 'Poppins', sans-serif;
@@ -12,13 +132,13 @@ body {
   --secondary-color: #000000;
   --ternary-color-1: #a4a3a3;
   --ternary-color-2: #747474;
-  --main-color: #4D77FF;
+  --main-color: #ff4d4d;
 
   --opacity-primary: 1;
   --opacity-secondary: 1;
   
   --back-brightness: brightness(1);
-  --back-blur: blur(64px);
+  --back-blur: blur(16px);
 }
 
 .opa-dark {
@@ -76,55 +196,12 @@ body {
   --primary-color: #070707;
   --ternary-color-2: #a4a3a3;
   --ternary-color-1: #747474;
-  --main-color: #4D77FF;
+  --main-color: #62ff4d;
   --opacity-secondary: 0.3;
   --opacity-primary: 0.5;
 
   --back-brightness: brightness(0.4);
-  --back-blur: blur(64px);
-}
-
-/*-----------------------------------------------gradients for the backdrop---------------------------------------------------*/
-.gradient__blue {
-  background: linear-gradient(45deg, #b9c9ff 0%, #4964ff 100%);
-  filter: blur(120px);
-}
-
-.gradient__blue2 {
-  background: linear-gradient(45deg, #b9c9ff 0%, #4964ff 100%);
-  filter: blur(120px);
-}
-
-.gradient__pink {
-  background: linear-gradient(10deg, #ffb9f6 0%, #fd74eb 100%);
-  filter: blur(140px);
-}
-
-/*------------------------------------------------PULSING EFFECTS-------------------------------------------------------------*/
-.gradient__blue {
-  animation: pulse 12s 10s ease infinite;
-}
-
-.gradient__blue2 {
-  animation: pulse 8s 10s ease infinite;
-}
-
-.gradient__pink {
-  animation: pulse 20s ease infinite;
-}
-
-@keyframes pulse {
-  0% {
-    opacity: 1;
-  }
-
-  50% {
-    opacity: 0.2;
-  }
-
-  100% {
-    opacity: 1;
-  }
+  --back-blur: blur(16px);
 }
 
 /*---------------------------------------------------TYPEWRITER EFFECT-------------------------------------------------------*/
@@ -171,7 +248,7 @@ body {
   }
 }
 
-/*----------------------------------------------------------CUSTOM SCROLLBAR-----V--------------------------------------------------------*/
+/*----------------------------------------------------------CUSTOM SCROLLBAR--------------------------------------------------------------*/
 ::-webkit-scrollbar {
   width: 7px;
   background-color: var(--primary-color);
