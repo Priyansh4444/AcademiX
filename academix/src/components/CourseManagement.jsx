@@ -5,6 +5,7 @@ const CourseManagement = () => {
   const [unitValue, setUnitValue] = useState("");
   const [field3Value, setField3Value] = useState("");
   const [field4Value, setField4Value] = useState("");
+  const [field5Value, setField5Value] = useState("");
   const [selectedCourse, setSelectedCourse] = useState("");
 
   const handleDropdownChange = (event) => {
@@ -26,6 +27,38 @@ const CourseManagement = () => {
   const handleField4Change = (event) => {
     setField4Value(event.target.value);
   };
+  const handleField5Change = (event) => {
+    setField5Value(event.target.value);
+  };
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    // Prepare the data to be sent to the backend
+    const formData = {
+      quartersValue,
+      unitValue,
+      field3Value,
+      field4Value,
+      selectedCourse,
+    };
+
+    // Make an HTTP request to your backend
+    try {
+      const response = await fetch('YOUR_BACKEND_API_ENDPOINT', {
+        method: 'POST', // Use POST for submitting form data
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      // Handle the response from the server (if needed)
+      const data = await response.json();
+      console.log('Response from server:', data);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
 
   return (
     <div className="flex text-center justify-center items-center flex-col pt-[90px]">
@@ -33,15 +66,16 @@ const CourseManagement = () => {
         <div className="font-bold txt-light mobile:text-[40px] lg:text-[64px]">
           Tell us about<span className="txt-main">&nbsp;yourself</span>
         </div>
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="lg:text-[2rem] mobile:text-[1rem] text-center mt-5">
             <label className="flex flex-col-reverse relative focus group">
               <input
-                type="text"
+                type="number"
                 name="quarters"
                 value={quartersValue}
                 onChange={handleQuartersChange}
                 required
+                min = "1"
                 className="mt-3 bg-transparent mx-3 txt-main border-2 bord px-5 py-3 leading-9"
               />
 
@@ -60,7 +94,9 @@ const CourseManagement = () => {
           <div className="lg:text-[2rem] mobile:text-[1rem] text-center mt-5">
             <label className="flex flex-col-reverse relative focus group">
               <input
-                type="text"
+                type="number"
+                min = "12"
+                max = "20"
                 name="units"
                 value={unitValue}
                 onChange={handleUnitChange}
@@ -73,18 +109,41 @@ const CourseManagement = () => {
                   unitValue !== "" && "translate-y-[-70px]"
                 }`}
               >
-                Units
+                Units [12 to 20]
               </span>
 
               <span className="txt-light ml-auto leading-10">* Required</span>
             </label>
           </div>
+          <div className="lg:text-[2rem] mobile:text-[1rem] text-center mt-5">
+            <label className="flex flex-col-reverse relative focus group">
+              <input
+                type="number"
+                min = "2023"
+                max = "2050"
+                name="expGrad"
+                value={field5Value}
+                onChange={handleField5Change}
+                required
+                className="mt-3 txt-main bg-transparent mx-3 border-2 bord px-5 py-3 leading-9"
+              />
 
+              <span
+                className={`txt-light px-3 absolute text-xl transform -translate-y-3 left-4 transition ${
+                  field5Value !== "" && "translate-y-[-70px]"
+                }`}
+              >
+                Expected Gradguation Date
+              </span>
+
+              <span className="txt-light ml-auto leading-10">* Required</span>
+            </label>
+          </div>
           <div className="lg:text-[2rem] mobile:text-[1rem] text-center mt-5">
             <label className="flex flex-col-reverse relative focus group">
               <input
                 type="text"
-                name="interests"
+                name="minors"
                 value={field3Value}
                 onChange={handleField3Change}
                 required
@@ -96,7 +155,7 @@ const CourseManagement = () => {
                   field3Value !== "" && "translate-y-[-70px]"
                 }`}
               >
-                Interests
+                Minors
               </span>
 
               <span className="txt-light ml-auto leading-10">* Required</span>
