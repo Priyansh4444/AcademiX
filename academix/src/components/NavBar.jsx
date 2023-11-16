@@ -35,9 +35,6 @@ const NavBar = () => {
           </button>
         </li>
       </ul>
-      <div className="justify-end items-center sm:hidden w-8">
-        <img id="menu" alt='hambuger menu' src="./assets/menu-light.png" />
-      </div>
     </div>
   );
 };
