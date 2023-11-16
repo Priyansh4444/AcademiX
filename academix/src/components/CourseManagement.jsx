@@ -42,18 +42,18 @@ const CourseManagement = () => {
                 value={quartersValue}
                 onChange={handleQuartersChange}
                 required
-                className="mt-3 mx-3 border-2 border-black px-5 py-3 leading-9"
+                className="mt-3 bg-transparent mx-3 txt-main border-2 bord px-5 py-3 leading-9"
               />
 
               <span
-                className={`px-3 absolute text-xl transform -translate-y-3 left-4 transition ${
+                className={`txt-light px-3 bg-transparent absolute text-xl transform -translate-y-3 left-4 transition ${
                   quartersValue !== "" && "translate-y-[-70px]"
                 }`}
               >
                 Quarters
               </span>
 
-              <span className="ml-auto leading-10">* Required</span>
+              <span className="txt-light ml-auto leading-10">* Required</span>
             </label>
           </div>
 
@@ -65,18 +65,18 @@ const CourseManagement = () => {
                 value={unitValue}
                 onChange={handleUnitChange}
                 required
-                className="mt-3 mx-3 border-2 border-black px-5 py-3 leading-9"
+                className="mt-3 txt-main bg-transparent mx-3 border-2 bord px-5 py-3 leading-9"
               />
 
               <span
-                className={`px-3 absolute text-xl transform -translate-y-3 left-4 transition ${
+                className={`txt-light px-3 absolute text-xl transform -translate-y-3 left-4 transition ${
                   unitValue !== "" && "translate-y-[-70px]"
                 }`}
               >
                 Units
               </span>
 
-              <span className="ml-auto leading-10">* Required</span>
+              <span className="txt-light ml-auto leading-10">* Required</span>
             </label>
           </div>
 
@@ -88,28 +88,28 @@ const CourseManagement = () => {
                 value={field3Value}
                 onChange={handleField3Change}
                 required
-                className="mt-3 mx-3 border-2 border-black px-5 py-3 leading-9"
+                className="mt-3 txt-main bg-transparent mx-3 border-2 bord px-5 py-3 leading-9"
               />
 
               <span
-                className={`px-3 absolute text-xl transform -translate-y-3 left-4 transition ${
+                className={`txt-light px-3 absolute text-xl transform -translate-y-3 left-4 transition ${
                   field3Value !== "" && "translate-y-[-70px]"
                 }`}
               >
                 Interests
               </span>
 
-              <span className="ml-auto leading-10">* Required</span>
+              <span className="txt-light ml-auto leading-10">* Required</span>
             </label>
           </div>
           <div className="lg:text-[2rem] mobile:text-[1rem] text-center mt-5">
-            <label className="flex flex-col-reverse relative focus group">
+            <label className="txt-light flex flex-col-reverse relative focus group">
               <select
                 name="coursesDropdown"
                 value={selectedCourse}
                 onChange={handleDropdownChange}
                 required
-                className="mt-3 mx-3 border-2 border-black px-5 py-3 leading-9 appearance-none"
+                className="mt-3 bg-transparent txt-main mx-3 border-2 bord px-5 py-3 leading-9 appearance-none"
               >
                 <option value="" disabled selected>
                   Select a course
@@ -132,12 +132,12 @@ const CourseManagement = () => {
                 Specialization
 
               </span>
-              <span className="ml-auto leading-10">* Required</span>
+              <span className="txt-light ml-auto leading-10">* Required</span>
             </label>
           </div>
           <div className="lg:text-[2rem] mobile:text-[1rem] text-center mt-5">
             <span
-              className={`px-3  text-xl transform -translate-y-1 transition ${
+              className={`px-3 txt-light text-xl transform -translate-y-1 transition ${
                 field4Value !== "" && "translate-y-[-100px]"
               }`}
             >
@@ -149,12 +149,12 @@ const CourseManagement = () => {
                 name="email"
                 value={field4Value}
                 onChange={handleField4Change}
-                className="mt-3 mx-3 border-2 border-black px-5 py-3 leading-9"
+                className="mt-3 mx-3 txt-main border-2 bg-transparent bord px-5 py-3 leading-9"
               />
             </label>
           </div>
 
-          <button className="text-white back-main px-[80px] py-[15px] mt-10 rounded-md text-[25px] hover:bg-red-700 active:bg-red-500 transition-all">
+          <button className="text-black back-main px-[80px] py-[15px] mt-10 rounded-md text-[25px] hover:bg-red-700 active:bg-red-500 transition-all">
             Submit
           </button>
         </form>

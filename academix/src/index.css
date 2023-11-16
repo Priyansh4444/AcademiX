@@ -149,6 +149,10 @@ body {
   opacity: var(--opacity-secondary);
 }
 
+.bord{
+  border-color: var(--secondary-color);
+}
+
 .txt-main {
   color: var(--main-color);
 }
@@ -241,6 +245,8 @@ body {
     left: 100%;
   }
 }
+
+
 
 @keyframes blink {
   to {
