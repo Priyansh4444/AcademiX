@@ -8,7 +8,7 @@ const NavBar = () => {
   return (
     <div className="z-20 mobile:px-10 lg:px-60 lg:text-[26px] lg:h-[80px] mobile:h-[70px] w-[100vw] flex text-5xl items-center justify-between font-normal shadow-md fixed nav-light txt-light">
       <div className="cursor-pointer mobile:w-10 lg:w-20 ">
-        <img id="logo" src="./assets/person_think_1.png" alt="logos" />
+        <img id="logo" src="./assets/person_think_1.png" alt="logos" onClick={() => navigate('/')}/>
       </div>
       <ul className="justify-around items-center sm:flex hidden">
         <li
