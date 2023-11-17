@@ -10,6 +10,16 @@ const CourseManagement = () => {
   const [selectedCourse, setSelectedCourse] = useState("");
   const [gradDate, setgradDate] = useState("");
   const [Start, setStart] = useState("");
+  const [error, setError] = React.useState(false);
+
+  const handleBlur = () => {
+    if (field6Value > field5Value) {
+      setError(true);
+    } else {
+      setError(false);
+    }
+ };
+
 
   const handleDropdownChange = (event) => {
     setSelectedCourse(event.target.value);
@@ -74,28 +84,6 @@ const CourseManagement = () => {
         </div>
         <form onSubmit={handleSubmit}>
           <div className="lg:text-[2rem] mobile:text-[1rem] text-center mt-5">
-            <label className="flex flex-col-reverse relative focus group">
-              <input
-                type="number"
-                name="quarters"
-                value={quartersValue}
-                onChange={handleQuartersChange}
-                required
-                min="1"
-                className="mt-3 flex bg-transparent mx-3 txt-main border-2 bord px-5 py-3 leading-9"
-              />
-              <span
-                className={`txt-light px-3 bg-transparent absolute text-xl transform -translate-y-3 left-4 transition ${
-                  quartersValue !== "" && "translate-y-[-70px]"
-                }`}
-              >
-                Quarters
-              </span>
-
-              <span className="txt-light ml-auto leading-10">* Required</span>
-            </label>
-          </div>
-          <div className="lg:text-[2rem] mobile:text-[1rem] text-center mt-5">
             <div className="flex">
               <span className="txt-light text-left ml-5 leading-10">
                 Expected Start Date
@@ -126,6 +114,8 @@ const CourseManagement = () => {
                 name="expStart"
                 value={field6Value}
                 onChange={handleField6Change}
+                
+            onBlur={handleBlur}
                 required
                 className="mt-3 w-1/2 txt-main bg-transparent mx-3 border-2 bord px-5 py-3 leading-9"
               />
@@ -187,6 +177,7 @@ const CourseManagement = () => {
                 name="expGrad"
                 value={field5Value}
                 onChange={handleField5Change}
+                onBlur={handleBlur}
                 required
                 className="mt-3 w-1/2 txt-main bg-transparent mx-3 border-2 bord px-5 py-3 leading-9"
               />
@@ -200,7 +191,6 @@ const CourseManagement = () => {
                 name="minors"
                 value={field3Value}
                 onChange={handleField3Change}
-                required
                 className="mt-3 txt-main bg-transparent mx-3 border-2 bord px-5 py-3 leading-9"
               />
 
@@ -212,7 +202,7 @@ const CourseManagement = () => {
                 Minors
               </span>
 
-              <span className="txt-light ml-auto leading-10">* Required</span>
+              <span className="txt-light ml-auto leading-10">Optional</span>
             </label>
           </div>
           <div className="lg:text-[2rem] mobile:text-[1rem] text-center mt-5">
@@ -270,9 +260,10 @@ const CourseManagement = () => {
             </label>
           </div>
 
-          <button className="text-black back-main px-[80px] py-[15px] mt-10 rounded-md text-[25px] hover:bg-red-700 active:bg-red-500 transition-all">
+          <button disabled={error} className="text-black back-main px-[80px] py-[15px] mt-10 rounded-md text-[25px] hover:bg-red-700 active:bg-red-500 transition-all">
             Submit
           </button>
+          {error && <p className="text-red-500">Start year cannot be greater than end year.</p>}
         </form>
       </div>
     </div>
