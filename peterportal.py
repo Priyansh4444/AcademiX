@@ -62,12 +62,17 @@ async def course_management(data: FormData):
             finalList.append([])
         if finalList[index] == None:
             finalList[index] = []
+
+    taken = set([])
     for index, term in enumerate(finalList):
+        if index == len(finalList) -1:
+            break
         for element in term:
+            taken.add(element)
             for classes in courses:
                 if element.replace(" ", "") == classes["id"]:
                     for prereqs in classes["prerequisite_for"]:
-                        if prereqs in lowerdiv:
+                        if prereqs in lowerdiv and prereqs not in taken:
                             finalList[index+1].append(prereqs)
                     
     for index in range(20):
