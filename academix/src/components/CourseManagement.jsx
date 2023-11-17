@@ -2,18 +2,19 @@ import React, { useState } from "react";
 
 const CourseManagement = () => {
   const [unitValue, setUnitValue] = useState("");
-  const [field3Value, setField3Value] = useState("");
+  const [minorValue, setminorValue] = useState("");
   const [field5Value, setField5Value] = useState("");
-  const [field6Value, setField6Value] = useState("");
+  const [year1Value, setyear1Value] = useState("");
   const [selectedCourse, setSelectedCourse] = useState("");
   const [gradDate, setgradDate] = useState("");
   const [startTerm, setstartTerm] = useState("");
   const [error, setError] = React.useState(false);
   const [formDatas, setFormData] = useState([]);
   const [toggleSummer, setSummer] = useState("");
+  const [responseData, setResponseData] = useState(null);
 
   const handleBlur = () => {
-    if (field6Value > field5Value) {
+    if (field5Value - year1Value < 3) {
       setError(true);
     } else {
       setError(false);
@@ -35,7 +36,7 @@ const CourseManagement = () => {
 
   const generateSemesterTitle = (index) => {
     const semesters = ["Summer", "Fall", "Winter", "Spring"];
-    const startYear = parseInt(field6Value, 10);
+    const startYear = parseInt(year1Value, 10);
     const year = startYear + Math.floor((index + 2) / semesters.length);
     const semester = semesters[index % semesters.length];
     return `${semester} ${year}`;
@@ -61,15 +62,15 @@ const CourseManagement = () => {
     setUnitValue(event.target.value);
   };
 
-  const handleField3Change = (event) => {
-    setField3Value(event.target.value);
+  const handleminorChange = (event) => {
+    setminorValue(event.target.value);
   };
 
   const handleField5Change = (event) => {
     setField5Value(event.target.value);
   };
-  const handleField6Change = (event) => {
-    setField6Value(event.target.value);
+  const handleyear1Change = (event) => {
+    setyear1Value(event.target.value);
   };
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -77,19 +78,20 @@ const CourseManagement = () => {
     // Prepare the data to be sent to the backend
     const formData = {
       term1: startTerm,
-      year1: field6Value,
+      year1: year1Value,
       units: unitValue,
       term2: gradDate,
       year2: field5Value,
-      minor: field3Value,
+      minor: minorValue,
       text_area: formDatas,
       specialization: selectedCourse,
+      summertogle: toggleSummer,
     };
     console.log(formData);
 
     // Make an HTTP request to your backend
     try {
-      const response = await fetch("YOUR_BACKEND_API_ENDPOINT", {
+      const response = await fetch("http://127.0.0.1:8000/course-management", {
         method: "POST", // Use POST for submitting form data
         headers: {
           "Content-Type": "application/json",
@@ -99,7 +101,8 @@ const CourseManagement = () => {
 
       // Handle the response from the server (if needed)
       const data = await response.json();
-      console.log("Response from server:", data);
+      console.log("Response from server:", data.message);
+      setResponseData(data.message);
     } catch (error) {
       console.error("Error:", error);
     }
@@ -142,8 +145,8 @@ const CourseManagement = () => {
                   min="2023"
                   max="2050"
                   name="expStart"
-                  value={field6Value}
-                  onChange={handleField6Change}
+                  value={year1Value}
+                  onChange={handleyear1Change}
                   onBlur={handleBlur}
                   required
                   className="mt-3 w-1/2 txt-main bg-transparent mx-3 border-2 bord px-5 py-3 leading-9"
@@ -163,7 +166,7 @@ const CourseManagement = () => {
                   required
                   className="mt-3 txt-main bg-transparent mx-3 border-2 bord px-5 py-3 leading-9"
                 />
-                
+
                 <span
                   className={`txt-light px-3 absolute text-xl transform -translate-y-3 left-4 transition ${
                     unitValue !== "" && "translate-y-[-70px]"
@@ -218,14 +221,14 @@ const CourseManagement = () => {
                 <input
                   type="text"
                   name="minors"
-                  value={field3Value}
-                  onChange={handleField3Change}
+                  value={minorValue}
+                  onChange={handleminorChange}
                   className="mt-3 txt-main bg-transparent mx-3 border-2 bord px-5 py-3 leading-9"
                 />
 
                 <span
                   className={`txt-light px-3 absolute text-xl transform -translate-y-3 left-4 transition ${
-                    field3Value !== "" && "translate-y-[-70px]"
+                    minorValue !== "" && "translate-y-[-70px]"
                   }`}
                 >
                   Minors
@@ -321,7 +324,7 @@ const CourseManagement = () => {
               </div>
 
               {/* Output the FormData for testing purposes */}
-              <pre>{JSON.stringify(formDatas, null, 2)}</pre>
+              <pre>{JSON.stringify(formDatas, "", 2)}</pre>
             </div>
             <button
               disabled={error}
@@ -329,12 +332,31 @@ const CourseManagement = () => {
             >
               Submit
             </button>
+
             {error && (
-              <p className="text-red-500">
-                Start year cannot be greater than end year.
-              </p>
+              <p className="text-red-500">Must have a 3 year Gap(for now).</p>
             )}
           </form>
+          {responseData && (
+            <div className="flex flex-wrap">
+              {responseData.map((semester, index) => (
+                <div key={index} className="w-1/4 p-4">
+                  <span className="txt-light text-left ml-5 leading-10">
+                    {generateSemesterTitle(index)}
+                  </span>
+                  <ul>
+                    {semester.map((value, i) => (
+                      <li key={i} className="mb-5">
+                        <span className="flex h-8 txt-light bord bg-transparent px-5 py-1 my-2 border border-gray-300 ">
+                          {value}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </>
