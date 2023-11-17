@@ -10,6 +10,7 @@ const CourseManagement = () => {
   const [startTerm, setstartTerm] = useState("");
   const [error, setError] = React.useState(false);
   const [formDatas, setFormData] = useState([]);
+  const [toggleSummer, setSummer] = useState("");
 
   const handleBlur = () => {
     if (field6Value > field5Value) {
@@ -50,6 +51,10 @@ const CourseManagement = () => {
 
   const handleDropdownChange = (event) => {
     setSelectedCourse(event.target.value);
+  };
+
+  const handleSummerChange = (event) => {
+    setSummer(event.target.value);
   };
 
   const handleUnitChange = (event) => {
@@ -158,7 +163,7 @@ const CourseManagement = () => {
                   required
                   className="mt-3 txt-main bg-transparent mx-3 border-2 bord px-5 py-3 leading-9"
                 />
-
+                
                 <span
                   className={`txt-light px-3 absolute text-xl transform -translate-y-3 left-4 transition ${
                     unitValue !== "" && "translate-y-[-70px]"
@@ -227,6 +232,31 @@ const CourseManagement = () => {
                 </span>
 
                 <span className="txt-light ml-auto leading-10">Optional</span>
+              </label>
+            </div>
+            <div className="lg:text-[2rem] mobile:text-[1rem] text-center mt-5">
+              <label className="txt-light flex flex-col-reverse relative focus group">
+                <select
+                  name="coursesDropdown"
+                  value={toggleSummer}
+                  onChange={handleSummerChange}
+                  required
+                  className="mt-3 bg-transparent txt-main mx-3 border-2 bord px-5 py-3 leading-9 appearance-none"
+                >
+                  <option value="" disabled selected>
+                    Select for Summer
+                  </option>
+                  <option value="Algorithms">Yes</option>
+                  <option value="Bioinformatics">No</option>
+                </select>
+                <span
+                  className={`px-3 absolute text-xl transform -translate-y-3 left-4 transition ${
+                    toggleSummer !== "" ? ": translate-y-[-70px]" : "hidden"
+                  }`}
+                >
+                  Summer Sessions?
+                </span>
+                <span className="txt-light ml-auto leading-10">* Required</span>
               </label>
             </div>
             <div className="lg:text-[2rem] mobile:text-[1rem] text-center mt-5">
