@@ -6,7 +6,10 @@ const CourseManagement = () => {
   const [field3Value, setField3Value] = useState("");
   const [field4Value, setField4Value] = useState("");
   const [field5Value, setField5Value] = useState("");
+  const [field6Value, setField6Value] = useState("");
   const [selectedCourse, setSelectedCourse] = useState("");
+  const [gradDate, setgradDate] = useState("");
+  const [Start, setStart] = useState("");
 
   const handleDropdownChange = (event) => {
     setSelectedCourse(event.target.value);
@@ -30,6 +33,9 @@ const CourseManagement = () => {
   const handleField5Change = (event) => {
     setField5Value(event.target.value);
   };
+  const handleField6Change = (event) => {
+    setField6Value(event.target.value);
+  };
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -44,19 +50,19 @@ const CourseManagement = () => {
 
     // Make an HTTP request to your backend
     try {
-      const response = await fetch('YOUR_BACKEND_API_ENDPOINT', {
-        method: 'POST', // Use POST for submitting form data
+      const response = await fetch("YOUR_BACKEND_API_ENDPOINT", {
+        method: "POST", // Use POST for submitting form data
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
       });
 
       // Handle the response from the server (if needed)
       const data = await response.json();
-      console.log('Response from server:', data);
+      console.log("Response from server:", data);
     } catch (error) {
-      console.error('Error:', error);
+      console.error("Error:", error);
     }
   };
 
@@ -75,10 +81,9 @@ const CourseManagement = () => {
                 value={quartersValue}
                 onChange={handleQuartersChange}
                 required
-                min = "1"
-                className="mt-3 bg-transparent mx-3 txt-main border-2 bord px-5 py-3 leading-9"
+                min="1"
+                className="mt-3 flex bg-transparent mx-3 txt-main border-2 bord px-5 py-3 leading-9"
               />
-
               <span
                 className={`txt-light px-3 bg-transparent absolute text-xl transform -translate-y-3 left-4 transition ${
                   quartersValue !== "" && "translate-y-[-70px]"
@@ -90,13 +95,49 @@ const CourseManagement = () => {
               <span className="txt-light ml-auto leading-10">* Required</span>
             </label>
           </div>
+          <div className="lg:text-[2rem] mobile:text-[1rem] text-center mt-5">
+            <div className="flex">
+              <span className="txt-light text-left ml-5 leading-10">
+                Expected Start Date
+              </span>
+
+              <span className="txt-light text-right ml-auto leading-10">
+                * Required
+              </span>
+            </div>
+            <label className="flex flex-row relative focus group">
+              <select
+                name="coursesDropdown"
+                value={Start}
+                onChange={setStart}
+                required
+                className="mt-3 w-1/2 bg-transparent txt-main mx-3 border-2 bord px-5 py-3 leading-9 appearance-none"
+              >
+                <option value="" disabled selected>
+                  Term
+                </option>
+                <option value="Winter">Winter</option>
+                <option value="Fall">Fall</option>
+              </select>
+              <input
+                type="number"
+                min="2023"
+                max="2050"
+                name="expStart"
+                value={field6Value}
+                onChange={handleField6Change}
+                required
+                className="mt-3 w-1/2 txt-main bg-transparent mx-3 border-2 bord px-5 py-3 leading-9"
+              />
+            </label>
+          </div>
 
           <div className="lg:text-[2rem] mobile:text-[1rem] text-center mt-5">
             <label className="flex flex-col-reverse relative focus group">
               <input
                 type="number"
-                min = "12"
-                max = "20"
+                min="12"
+                max="20"
                 name="units"
                 value={unitValue}
                 onChange={handleUnitChange}
@@ -116,29 +157,42 @@ const CourseManagement = () => {
             </label>
           </div>
           <div className="lg:text-[2rem] mobile:text-[1rem] text-center mt-5">
-            <label className="flex flex-col-reverse relative focus group">
+            <div className="flex">
+              <span className="txt-light text-left ml-5 leading-10">
+                Expected Graduation Date
+              </span>
+
+              <span className="txt-light text-right ml-auto leading-10">
+                * Required
+              </span>
+            </div>
+            <label className="flex flex-row relative focus group">
+              <select
+                name="coursesDropdown"
+                value={gradDate}
+                onChange={setgradDate}
+                required
+                className="mt-3 w-1/2 bg-transparent txt-main mx-3 border-2 bord px-5 py-3 leading-9 appearance-none"
+              >
+                <option value="" disabled selected>
+                  Term
+                </option>
+                <option value="Winter">Winter</option>
+                <option value="Fall">Fall</option>
+              </select>
               <input
                 type="number"
-                min = "2023"
-                max = "2050"
+                min="2023"
+                max="2050"
                 name="expGrad"
                 value={field5Value}
                 onChange={handleField5Change}
                 required
-                className="mt-3 txt-main bg-transparent mx-3 border-2 bord px-5 py-3 leading-9"
+                className="mt-3 w-1/2 txt-main bg-transparent mx-3 border-2 bord px-5 py-3 leading-9"
               />
-
-              <span
-                className={`txt-light px-3 absolute text-xl transform -translate-y-3 left-4 transition ${
-                  field5Value !== "" && "translate-y-[-70px]"
-                }`}
-              >
-                Expected Gradguation Date
-              </span>
-
-              <span className="txt-light ml-auto leading-10">* Required</span>
             </label>
           </div>
+         
           <div className="lg:text-[2rem] mobile:text-[1rem] text-center mt-5">
             <label className="flex flex-col-reverse relative focus group">
               <input
@@ -174,22 +228,25 @@ const CourseManagement = () => {
                   Select a course
                 </option>
                 <option value="Algorithms">Algorithms</option>
-                <option value="Architecture and Embedded Systems">Architecture and Embedded Systems</option>
+                <option value="Architecture and Embedded Systems">
+                  Architecture and Embedded Systems
+                </option>
                 <option value="Bioinformatics">Bioinformatics</option>
                 <option value="General CS track">General CS track</option>
                 <option value="Information">Information</option>
                 <option value="Intelligent Systems">Intelligent Systems</option>
                 <option value="Networked Systems">Networked Systems</option>
-                <option value="Systems and Software">Systems and Software</option>
+                <option value="Systems and Software">
+                  Systems and Software
+                </option>
                 <option value="Visual Computing">Visual Computing</option>
               </select>
               <span
                 className={`px-3 absolute text-xl transform -translate-y-3 left-4 transition ${
-                  selectedCourse !== "" ? ": translate-y-[-70px]" :"hidden"
+                  selectedCourse !== "" ? ": translate-y-[-70px]" : "hidden"
                 }`}
               >
                 Specialization
-
               </span>
               <span className="txt-light ml-auto leading-10">* Required</span>
             </label>
