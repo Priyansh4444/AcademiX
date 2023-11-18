@@ -127,13 +127,13 @@ def get_course_data(course):
 
 
 # Call get course List to get the 10 best classes to take
-def get_course_list():
+def get_course_list(specialization):
     new_list = []
     for item in course_list:
         lst = get_course_data(item)
         new_list.append(lst)
 
-    item = chatgpt_prompt(str(new_list), 'intelligent systems')
+    item = chatgpt_prompt(str(new_list), specialization)
     return item
 
 
