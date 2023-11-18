@@ -86,6 +86,8 @@ async def course_management(data: FormData):
         for i in range(5):
             if len(finalList[index]) < 5:
                  finalList[index].append('')
+                
+    finalList = get_course_list(data.specialization)
     print(finalList)
     return {"message": finalList}
 
@@ -134,6 +136,21 @@ def get_course_list(specialization):
         new_list.append(lst)
 
     item = chatgpt_prompt(str(new_list), specialization)
-    return item
+    
+    counter = 0
+    for i in range(20):
+        for j in range(5):
+            second_counter = 0
+            if finalList[i][j] !='':
+                pass
+            else:
+                if counter < 10 and second_counter <2:
+                    finalList[i][j] = item[counter]
+                    counter += 1
+                    second_counter += 1
+                    
+    return finalList
+
+
 
 
