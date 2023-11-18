@@ -1,4 +1,4 @@
-# AcademiX
+# ZotPlanner
 Course Planner ~ Simplified
 
 Material Tailwind
