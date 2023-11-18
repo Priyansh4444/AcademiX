@@ -74,6 +74,7 @@ async def course_management(data: FormData):
                     for prereqs in classes["prerequisite_for"]:
                         if prereqs in lowerdiv and prereqs not in taken:
                             finalList[index+1].append(prereqs)
+                            taken.add(prereqs)
                     
     for index in range(20):
         for i in range(5):
