@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List,Optional
@@ -86,71 +86,7 @@ async def course_management(data: FormData):
         for i in range(5):
             if len(finalList[index]) < 5:
                  finalList[index].append('')
-                
-    finalList = get_course_list(data.specialization)
+
     print(finalList)
     return {"message": finalList}
-
-
-os.environ['OPENAI_API_KEY'] = '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' 
-print(os.environ['OPENAI_API_KEY'])
-
-course_list = ['COMPSCI103', 'COMPSCI111', 'COMPSCI112', 'COMPSCI113', 'COMPSCI114', 'COMPSCI115', 'COMPSCI116', 'COMPSCI117', 'COMPSCI118',
-               'COMPSCI121', 'COMPSCI122A', 'COMPSCI122B', 'COMPSCI122C', 'COMPSCI122D', 'COMPSCI125', 'COMPSCI131', 'COMPSCI132', 'COMPSCI133',
-               'COMPSCI134', 'COMPSCI137', 'COMPSCI141', 'COMPSCI142A', 'COMPSCI142B', 'COMPSCI143A', 'COMPSCI143B', 'COMPSCI145', 'COMPSCI145L',
-               'COMPSCI146', 'COMPSCI147', 'COMPSCI151', 'COMPSCI152', 'COMPSCI153', 'COMPSCI154', 'COMPSCI161', 'COMPSCI162', 'COMPSCI163', 'COMPSCI164',
-               'COMPSCI165', 'COMPSCI166', 'COMPSCI166', 'COMPSCI167', 'COMPSCI169', 'COMPSCI171', 'COMPSCI172B', 'COMPSCI172C', 'COMPSCI175', 'COMPSCI177',
-               'COMPSCI178', 'COMPSCI179', 'COMPSCI180A', 'COMPSCI180B', 'COMPSCI183', 'COMPSCI184A', 'COMPSCI184C', 'COMPSCI190', 'COMPSCI199',
-            "IN4MATX 102", "IN4MATX 113", "IN4MATX 115", "IN4MATX 117", "IN4MATX 121", "IN4MATX 122", "IN4MATX 124", "IN4MATX 131", "IN4MATX 133", "IN4MATX 134"]
-
-
-
-def chatgpt_prompt(lst: str, specialization):
-    client = OpenAI()
-
-    completion = client.chat.completions.create(
-      model="gpt-3.5-turbo",
-      messages=[
-        {"role": "system", "content": "You are a personal assistant, skilled in giving a personalized schedule of classes to college students. Choose the 10 best classes that will help studencts with a computer science degree"},
-        {"role": "user", "content": 'Here are the prompts: ' + lst + 'please give only the IDs of the 10 best classes related to this specialization in a python list with the ids as strings: ' + specialization}
-      ]
-    )
-
-    return completion.choices[0].message.content
-
-
-def get_course_data(course):
-    url = 'https://api.peterportal.org/rest/v0/courses/' + course
-    request = urllib.request.Request(url)
-    response = urllib.request.urlopen(request)
-    json_text = response.read()
-    json_file = json.loads(json_text)
-    return [json_file['id'], json_file['description']]
-
-
-# Call get course List to get the 10 best classes to take
-def get_course_list(specialization):
-    new_list = []
-    for item in course_list:
-        lst = get_course_data(item)
-        new_list.append(lst)
-
-    item = chatgpt_prompt(str(new_list), specialization)
-    
-    counter = 0
-    for i in range(20):
-        for j in range(5):
-            second_counter = 0
-            if finalList[i][j] !='':
-                pass
-            else:
-                if counter < 10 and second_counter <2:
-                    finalList[i][j] = item[counter]
-                    counter += 1
-                    second_counter += 1
-                    
-    return finalList
-
-
-
 
