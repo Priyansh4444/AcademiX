@@ -71,7 +71,7 @@ async def course_management(data: FormData):
 
     taken = set([])
     for index, term in enumerate(finalList):
-        if index == len(finalList) -1:
+        if index == len(finalList)-1:
             break
         for element in term:
             taken.add(element)
