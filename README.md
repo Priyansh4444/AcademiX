@@ -29,6 +29,8 @@ ZotPlanner harnesses the power of AI to simplify the course planning process, ma
 
 3. npm start
 
+4. Use uvicorn peterportal:app --reload to start up the backend
+
 ## Usage
 
 
